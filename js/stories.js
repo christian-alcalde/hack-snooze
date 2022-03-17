@@ -56,9 +56,9 @@ async function submitNewStory(evt) {
   console.debug("submitNewStory", evt);
   evt.preventDefault();
 
-  const author = $(".form-control").eq(0).val();
-  const title = $(".form-control").eq(1).val();
-  const url = $(".form-control").eq(2).val();
+  const author = $("#story-author").val();
+  const title = $("#story-title").val();
+  const url = $("#story-url").val();
 
   // must await because addStory is async method
   // await will allow the list to update
