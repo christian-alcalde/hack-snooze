@@ -50,3 +50,24 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+/** Grabs values from story form and passes those values as an option to addStory method */
+async function submitNewStory(evt) {
+  console.debug("submitNewStory", evt);
+  evt.preventDefault();
+
+  const author = $(".form-control").eq(0).val();
+  const title = $(".form-control").eq(1).val();
+  const url = $(".form-control").eq(2).val();
+
+  // must await because addStory is async method
+  // await will allow the list to update
+  await storyList.addStory(currentUser, { author, title, url });
+  $storyForm.trigger("reset");
+  $storyForm.hide();
+
+  storyList = await StoryList.getStories();
+  putStoriesOnPage();
+}
+
+$storyForm.on("submit", submitNewStory);
