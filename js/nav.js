@@ -9,6 +9,7 @@
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
   evt.preventDefault();
+  $storyForm.hide();
   hidePageComponents();
   putStoriesOnPage();
 }
@@ -36,3 +37,12 @@ function updateNavOnLogin() {
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
+
+/** When user clicks 'Submit', displays story submission form on DOM  */
+
+function showSubmitForm() {
+  console.log("show submit function");
+  $storyForm.show();
+}
+
+$body.on("click", "#nav-submit", showSubmitForm);
