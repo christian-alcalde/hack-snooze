@@ -23,12 +23,10 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
-  const starClass = story.isStoryFavorite()
-    ? "fa-solid"
-    : "fa-regular";
+  const starClass = story.isStoryFavorite() ? "fa-solid" : "fa-regular";
 
-    //MAKE A SET OF ALL IDS OF USERS FAVORITES
-    //TODO: change from O(n * m) to O(n) using a set
+  //MAKE A SET OF ALL IDS OF USERS FAVORITES
+  //TODO: change from O(n * m) to O(n) using a set
 
   return $(`
       <li id="${story.storyId}">
@@ -54,7 +52,7 @@ function putStoriesOnPage() {
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
     const $story = generateStoryMarkup(story);
-    $allStoriesList.append($story);
+    $allStoriesList.prepend($story);
   }
 
   $allStoriesList.show();
@@ -83,8 +81,11 @@ function putMyStoriesOnPage() {
   // loop through all of our favorite stories and generate HTML for them
   for (let story of currentUser.ownStories) {
     const $story = generateStoryMarkup(story);
+
     $allStoriesList.prepend($story);
 
+    let $trashcan = $("ol > li > i");
+    $trashcan.removeClass("hidden");
   }
 
   $allStoriesList.show();

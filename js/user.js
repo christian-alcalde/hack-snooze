@@ -120,13 +120,12 @@ async function addOrRemoveFavorite(evt) {
   const $target = $(evt.target);
   const $storyId = $target.parent().attr("id");
 
-  let story = Story.getStoryById($storyId).pop();
+  const story = Story.getStoryById($storyId).pop();
 
   //MAYBE FIX? SEPERATION OF CONCERNS?
   if ($target.hasClass("fa-regular")) {
     $target.removeClass("fa-regular").addClass("fa-solid");
     await currentUser.addFavorite(story);
-
   } else if ($target.hasClass("fa-solid")) {
     $target.removeClass("fa-solid").addClass("fa-regular");
     await currentUser.removeFavorite(story);
@@ -134,3 +133,17 @@ async function addOrRemoveFavorite(evt) {
 }
 
 $allStoriesList.on("click", $(".fa-star"), addOrRemoveFavorite);
+
+async function removeUserStory(evt) {
+  const $target = $(evt.target);
+  console.log(evt.target);
+  debugger;
+  const $storyId = $target.parent().attr("id");
+
+  const story = Story.getStoryById($storyId).pop();
+
+  storyList.removeStory(currentUser, story);
+  $target.parent().remove();
+}
+
+$allStoriesList.on("click", $(".fa-solid"), removeUserStory);

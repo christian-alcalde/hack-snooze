@@ -21,9 +21,8 @@ class Story {
   }
 
   /** Parses hostname out of URL and returns it. */
-//FIXMEEEEE// new URL(url)
   getHostName() {
-    return this.url;
+    return new URL(this.url).hostname;
   }
 
   /** Pass in a story id and filters through storyList. Returns story instance
@@ -37,7 +36,9 @@ class Story {
 
   /**Given ID, check if story is in current users favorites. Return boolean. */
   isStoryFavorite() {
-    return currentUser.favorites.some(story => story.storyId === this.storyId);
+    return currentUser.favorites.some(
+      (story) => story.storyId === this.storyId
+    );
   }
 }
 
@@ -99,8 +100,21 @@ class StoryList {
     this.stories.push(story);
     currentUser.ownStories.push(story);
 
-
     return story;
+  }
+
+  async removeStory(currentUser, story) {
+    const userToken = currentUser.loginToken;
+
+    console.log("storyid", story.storyId);
+    debugger;
+
+    await axios.delete(`${BASE_URL}/stories/${story.storyId}`, {
+      data: { token: userToken },
+    });
+
+    currentUser.ownStories.filter((story) => !story);
+    this.stories.filter((story) => !story);
   }
 }
 /******************************************************************************
@@ -214,20 +228,25 @@ class User {
     }
   }
 
-  /**Pass story to add to server and update favorites locally.*/
+  /** Pass story to add to server and update favorites locally. */
   async addFavorite(story) {
-   await axios.post(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
-      {token: this.loginToken,});
+    await axios.post(
+      `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      { token: this.loginToken }
+    );
 
     this.favorites.push(story);
   }
 
-  /**Pass story to remove from server and update favorites locally.*/
+  /** Pass story to remove from server and update favorites locally. */
   async removeFavorite(story) {
+    await axios.delete(
+      `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      { data: { token: this.loginToken } }
+    );
 
-    await axios.delete(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
-      {data: { token: this.loginToken }, });
-//FILTER !
-    this.favorites.splice(this.favorites.indexOf(story), 1);
+    // filters through the favorites array and returns array of stories that
+    //  do not contain the story we removed
+    this.favorites.filter((story) => !story);
   }
 }

@@ -42,3 +42,11 @@
 i:hover {
   cursor: pointer;
 }
+
+i {
+  padding: 2px;
+}
+
+.fa-trash-can:hover {
+  color: red;
+}
