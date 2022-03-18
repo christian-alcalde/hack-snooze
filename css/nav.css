@@ -21,3 +21,8 @@ nav {
   margin-left: auto;
   text-align: right;
 }
+
+.nav-actions > a {
+  border-left: solid black 2px;
+  padding-left: 5px;
+}

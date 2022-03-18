@@ -41,8 +41,18 @@ function updateNavOnLogin() {
 /** When user clicks 'Submit', displays story submission form on DOM  */
 
 function showSubmitForm() {
-  console.log("show submit function");
+  console.debug("showSubmitForm");
   $storyForm.slideToggle();
 }
 
 $body.on("click", "#nav-submit", showSubmitForm);
+
+/** When user clicks 'Favorites', displays all favorite stories on DOM  */
+
+function showFavoriteStories() {
+  console.debug("showFavoriteStories");
+  putFavoritesOnPage();
+}
+
+/** Click listener to show favorited stories */
+$body.on("click", "#nav-favorites", showFavoriteStories);

@@ -23,7 +23,9 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
-  const starClass = Story.isStoryFavorite(story.storyId) ? "fa-solid" : "fa-regular";
+  const starClass = Story.isStoryFavorite(story.storyId)
+    ? "fa-solid"
+    : "fa-regular";
 
   return $(`
       <li id="${story.storyId}">
@@ -38,7 +40,7 @@ function generateStoryMarkup(story) {
     `);
 }
 
-/** Gets list of stories from server, generates their HTML, and puts on page. */
+/** Gets list of stories locally, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");
@@ -47,6 +49,21 @@ function putStoriesOnPage() {
 
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
+    const $story = generateStoryMarkup(story);
+    $allStoriesList.append($story);
+  }
+
+  $allStoriesList.show();
+}
+
+/** Gets list of favorite stories locally, generates their HTML, and puts on page. */
+function putFavoritesOnPage() {
+  console.debug("putFavoritesOnPage");
+
+  $allStoriesList.empty();
+
+  // loop through all of our favorite stories and generate HTML for them
+  for (let story of currentUser.favorites) {
     const $story = generateStoryMarkup(story);
     $allStoriesList.append($story);
   }
