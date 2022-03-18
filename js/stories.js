@@ -23,9 +23,11 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
+  const starClass = Story.isStoryFavorite(story.storyId) ? "fa-solid" : "fa-regular";
+
   return $(`
       <li id="${story.storyId}">
-      <i class="fa-regular fa-star"></i>
+      <i class="${starClass} fa-star"></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -71,3 +73,5 @@ async function submitNewStory(evt) {
 }
 
 $storyForm.on("submit", submitNewStory);
+
+//does ID exist in currentUser.favorites

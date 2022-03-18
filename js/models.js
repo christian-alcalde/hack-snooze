@@ -34,6 +34,11 @@ class Story {
     });
     return story;
   }
+
+  static isStoryFavorite(id){
+
+    return currentUser.favorites.some(story => story.storyId === id)
+  }
 }
 
 /******************************************************************************
@@ -210,6 +215,7 @@ class User {
   /**Take instance of user, pass story to add to server and update favorites
    * locally.*/
   async addFavorite(story) {
+    console.log(story);
     const response = await axios.post(
       `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
       {

@@ -118,14 +118,16 @@ function updateUIOnUserLogin() {
 async function addOrRemoveFavorite(evt) {
   const $target = $(evt.target);
   const $storyId = $target.parent().attr("id");
-  console.log($target);
-  console.log($storyId);
+
+  let story = Story.getStoryById($storyId).pop();
 
   if ($target.hasClass("fa-regular")) {
     $target.removeClass("fa-regular").addClass("fa-solid");
-    // await currentUser.addFavorite();
+    await currentUser.addFavorite(story);
+
   } else if ($target.hasClass("fa-solid")) {
     $target.removeClass("fa-solid").addClass("fa-regular");
+    // await currentUser.removeFavorite(story);
   }
 }
 
