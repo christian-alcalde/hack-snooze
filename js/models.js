@@ -21,7 +21,7 @@ class Story {
   }
 
   /** Parses hostname out of URL and returns it. */
-
+//FIXMEEEEE// new URL(url)
   getHostName() {
     return this.url;
   }
@@ -36,8 +36,8 @@ class Story {
   }
 
   /**Given ID, check if story is in current users favorites. Return boolean. */
-  static isStoryFavorite(id) {
-    return currentUser.favorites.some(story => story.storyId === id);
+  isStoryFavorite() {
+    return currentUser.favorites.some(story => story.storyId === this.storyId);
   }
 }
 
@@ -227,7 +227,7 @@ class User {
 
     await axios.delete(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
       {data: { token: this.loginToken }, });
-
+//FILTER !
     this.favorites.splice(this.favorites.indexOf(story), 1);
   }
 }

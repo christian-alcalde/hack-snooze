@@ -23,12 +23,16 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
-  const starClass = Story.isStoryFavorite(story.storyId)
+  const starClass = story.isStoryFavorite()
     ? "fa-solid"
     : "fa-regular";
 
+    //MAKE A SET OF ALL IDS OF USERS FAVORITES
+    //TODO: change from O(n * m) to O(n) using a set
+
   return $(`
       <li id="${story.storyId}">
+      <i class="fa-solid fa-trash-can hidden"></i>
       <i class="${starClass} fa-star"></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
@@ -80,6 +84,7 @@ function putMyStoriesOnPage() {
   for (let story of currentUser.ownStories) {
     const $story = generateStoryMarkup(story);
     $allStoriesList.prepend($story);
+
   }
 
   $allStoriesList.show();
