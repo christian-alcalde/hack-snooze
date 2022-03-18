@@ -25,6 +25,15 @@ class Story {
   getHostName() {
     return this.url;
   }
+
+  /** Pass in a story id and filters through storyList. Returns story instance
+   *  with matching id. */
+  static getStoryById(id) {
+    const story = storyList.stories.filter((story) => {
+      return story.storyId === id;
+    });
+    return story;
+  }
 }
 
 /******************************************************************************
@@ -200,17 +209,16 @@ class User {
 
   /**Take instance of user, pass story to add to server and update favorites
    * locally.*/
-  async addFavorite(story){
-
-    const response = await axios.post(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`, {
-      token: this.loginToken, });
+  async addFavorite(story) {
+    const response = await axios.post(
+      `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      {
+        token: this.loginToken,
+      }
+    );
 
     this.favorites.push(story);
-    }
-
-  async removeFavorite(story){
-
   }
 
+  async removeFavorite(story) {}
 }
-

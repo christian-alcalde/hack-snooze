@@ -114,3 +114,19 @@ function updateUIOnUserLogin() {
 
   updateNavOnLogin();
 }
+
+async function addOrRemoveFavorite(evt) {
+  const $target = $(evt.target);
+  const $storyId = $target.parent().attr("id");
+  console.log($target);
+  console.log($storyId);
+
+  if ($target.hasClass("fa-regular")) {
+    $target.removeClass("fa-regular").addClass("fa-solid");
+    // await currentUser.addFavorite();
+  } else if ($target.hasClass("fa-solid")) {
+    $target.removeClass("fa-solid").addClass("fa-regular");
+  }
+}
+
+$allStoriesList.on("click", $(".fa-star"), addOrRemoveFavorite);

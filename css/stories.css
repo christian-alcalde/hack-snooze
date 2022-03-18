@@ -16,7 +16,6 @@
   margin: 20px 30px;
 }
 
-
 /* Individual stories */
 
 .story-link {
@@ -40,7 +39,6 @@
 
 /* Favorite button */
 
-span>i:hover{
+i:hover {
   cursor: pointer;
-
 }
