@@ -33,13 +33,6 @@ class Story {
     });
     return story;
   }
-
-  /**Given ID, check if story is in current users favorites. Return boolean. */
-  isStoryFavorite() {
-    return currentUser.favorites.some(
-      (story) => story.storyId === this.storyId
-    );
-  }
 }
 
 /******************************************************************************
@@ -105,9 +98,6 @@ class StoryList {
 
   async removeStory(currentUser, story) {
     const userToken = currentUser.loginToken;
-
-    console.log("storyid", story.storyId);
-    debugger;
 
     await axios.delete(`${BASE_URL}/stories/${story.storyId}`, {
       data: { token: userToken },

@@ -39,7 +39,7 @@
 
 /* Favorite button */
 
-i:hover {
+li i:hover {
   cursor: pointer;
 }
 

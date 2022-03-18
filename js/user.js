@@ -146,4 +146,4 @@ async function removeUserStory(evt) {
   $target.parent().remove();
 }
 
-$allStoriesList.on("click", $(".fa-solid"), removeUserStory);
+// $allStoriesList.on("click", $(".fa-trash-can"), removeUserStory);
