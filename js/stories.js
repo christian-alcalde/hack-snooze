@@ -25,6 +25,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+      <span><i class="fa-thin fa-star"></i></span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -62,12 +63,11 @@ async function submitNewStory(evt) {
 
   // must await because addStory is async method
   // await will allow the list to update
-  await storyList.addStory(currentUser, { author, title, url });
+  const story = await storyList.addStory(currentUser, { author, title, url });
   $storyForm.trigger("reset");
-  $storyForm.hide();
 
-  storyList = await StoryList.getStories();
-  putStoriesOnPage();
+  const $story = generateStoryMarkup(story);
+  $allStoriesList.prepend($story);
 }
 
 $storyForm.on("submit", submitNewStory);
