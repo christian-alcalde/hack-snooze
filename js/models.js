@@ -28,7 +28,7 @@ class Story {
   /** Pass in a story id and filters through storyList. Returns story instance
    *  with matching id. */
   static getStoryById(id) {
-    const story = storyList.stories.filter((story) => {
+    const story = storyList.stories.find((story) => {
       return story.storyId === id;
     });
     return story;
@@ -128,6 +128,7 @@ class User {
     // instantiate Story instances for the user's favorites and ownStories
     this.favorites = favorites.map((s) => new Story(s));
     this.ownStories = ownStories.map((s) => new Story(s));
+    this.userFavoriteIds = new Set(this.favorites.map(favorite => favorite.storyId));
 
     // store the login token on the user so it's easy to find for API calls.
     this.loginToken = token;
@@ -185,8 +186,9 @@ class User {
         ownStories: user.stories,
       },
       response.data.token
-    );
-  }
+      );
+    }
+
 
   /** When we already have credentials (token & username) for a user,
    *   we can log them in automatically. This function does that.
@@ -226,6 +228,7 @@ class User {
     );
 
     this.favorites.push(story);
+    currentUser.userFavoriteIds.add(story.storyId);
   }
 
   /** Pass story to remove from server and update favorites locally. */
@@ -237,6 +240,7 @@ class User {
 
     // filters through the favorites array and returns array of stories that
     //  do not contain the story we removed
-    this.favorites.filter((story) => !story);
+    this.favorites = this.favorites.filter(favStory => favStory !== story);
+    currentUser.userFavoriteIds.delete(story.storyId);
   }
 }

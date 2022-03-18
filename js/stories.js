@@ -22,11 +22,8 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
-  const userFavoriteIds = new Set(
-    currentUser.favorites.map(favorite => favorite.storyId));
-
   const hostName = story.getHostName();
-  const starClass = userFavoriteIds.has(story.storyId)
+  const starClass = currentUser.userFavoriteIds.has(story.storyId)
     ? "fa-solid"
     : "fa-regular";
 
