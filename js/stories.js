@@ -71,6 +71,20 @@ function putFavoritesOnPage() {
   $allStoriesList.show();
 }
 
+function putMyStoriesOnPage() {
+  console.debug("putFavoritesOnPage");
+
+  $allStoriesList.empty();
+
+  // loop through all of our favorite stories and generate HTML for them
+  for (let story of currentUser.ownStories) {
+    const $story = generateStoryMarkup(story);
+    $allStoriesList.append($story);
+  }
+
+  $allStoriesList.show();
+}
+
 /** Grabs values from story form and passes those values as an option to addStory method */
 async function submitNewStory(evt) {
   console.debug("submitNewStory", evt);

@@ -51,8 +51,17 @@ $body.on("click", "#nav-submit", showSubmitForm);
 
 function showFavoriteStories() {
   console.debug("showFavoriteStories");
+  $storyForm.slideUp();
   putFavoritesOnPage();
 }
 
 /** Click listener to show favorited stories */
 $body.on("click", "#nav-favorites", showFavoriteStories);
+
+function showMyStories() {
+  console.debug("showMyStories");
+  $storyForm.slideUp();
+  putMyStoriesOnPage();
+}
+
+$body.on("click", "#nav-my-stories", showMyStories);
