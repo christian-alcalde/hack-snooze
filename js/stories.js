@@ -65,7 +65,7 @@ function putFavoritesOnPage() {
   // loop through all of our favorite stories and generate HTML for them
   for (let story of currentUser.favorites) {
     const $story = generateStoryMarkup(story);
-    $allStoriesList.append($story);
+    $allStoriesList.prepend($story);
   }
 
   $allStoriesList.show();
@@ -79,7 +79,7 @@ function putMyStoriesOnPage() {
   // loop through all of our favorite stories and generate HTML for them
   for (let story of currentUser.ownStories) {
     const $story = generateStoryMarkup(story);
-    $allStoriesList.append($story);
+    $allStoriesList.prepend($story);
   }
 
   $allStoriesList.show();
