@@ -35,9 +35,9 @@ class Story {
     return story;
   }
 
-  static isStoryFavorite(id){
-
-    return currentUser.favorites.some(story => story.storyId === id)
+  /**Given ID, check if story is in current users favorites. Return boolean. */
+  static isStoryFavorite(id) {
+    return currentUser.favorites.some(story => story.storyId === id);
   }
 }
 
@@ -212,19 +212,20 @@ class User {
     }
   }
 
-  /**Take instance of user, pass story to add to server and update favorites
-   * locally.*/
+  /**Pass story to add to server and update favorites locally.*/
   async addFavorite(story) {
-    console.log(story);
-    const response = await axios.post(
-      `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
-      {
-        token: this.loginToken,
-      }
-    );
+   await axios.post(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      {token: this.loginToken,});
 
     this.favorites.push(story);
   }
 
-  async removeFavorite(story) {}
+  /**Pass story to remove from server and update favorites locally.*/
+  async removeFavorite(story) {
+
+    await axios.delete(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      {data: { token: this.loginToken }, });
+
+    this.favorites.splice(this.favorites.indexOf(story), 1);
+  }
 }

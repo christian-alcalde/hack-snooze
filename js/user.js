@@ -115,19 +115,21 @@ function updateUIOnUserLogin() {
   updateNavOnLogin();
 }
 
+/**Find target star that was clicked, update DOM and Database information. */
 async function addOrRemoveFavorite(evt) {
   const $target = $(evt.target);
   const $storyId = $target.parent().attr("id");
 
   let story = Story.getStoryById($storyId).pop();
 
+  //MAYBE FIX? SEPERATION OF CONCERNS?
   if ($target.hasClass("fa-regular")) {
     $target.removeClass("fa-regular").addClass("fa-solid");
     await currentUser.addFavorite(story);
 
   } else if ($target.hasClass("fa-solid")) {
     $target.removeClass("fa-solid").addClass("fa-regular");
-    // await currentUser.removeFavorite(story);
+    await currentUser.removeFavorite(story);
   }
 }
 
